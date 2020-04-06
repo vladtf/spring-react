@@ -3,6 +3,7 @@ package com.springreact.demo.profile;
 import com.amazonaws.services.dynamodbv2.xspec.S;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 public class UserProfile {
@@ -35,8 +36,8 @@ public class UserProfile {
         this.username = username;
     }
 
-    public String getProfileImageLink() {
-        return profileImageLink;
+    public Optional<String> getProfileImageLink() {
+        return Optional.ofNullable(profileImageLink);
     }
 
     public void setProfileImageLink(String profileImageLink) {
