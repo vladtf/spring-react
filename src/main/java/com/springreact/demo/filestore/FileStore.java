@@ -15,6 +15,7 @@ public class FileStore {
 
     private final AmazonS3 s3;
 
+    @Autowired
     public FileStore(AmazonS3 s3) {
         this.s3 = s3;
     }
