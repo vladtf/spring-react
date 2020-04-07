@@ -4,7 +4,7 @@ import axios from "axios";
 
 const UserProfiles = () => {
     const fetchUserProfile = () => {
-        axios.get("http://localhost:8080/magement/api/v1/user").then(res => {
+        axios.get("http://localhost:8080/api/v1/user").then(res => {
             console.log(res);
         });
     };
