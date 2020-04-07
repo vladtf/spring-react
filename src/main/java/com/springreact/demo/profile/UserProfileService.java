@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.*;
 
 import static org.apache.http.entity.ContentType.*;
@@ -61,17 +60,19 @@ public class UserProfileService {
     }
 
     private UserProfile getUserProfileOrThrow(UUID userProfileId) {
-        return dataAccessService.
-                getUserProfiles()
+        return dataAccessService
+                .getUserProfiles()
                 .stream()
                 .filter(userProfile -> userProfile.getUserProfileId().equals(userProfileId))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException(MessageFormat.format("User profile {1} not found.", userProfileId)));
+                .orElseThrow(() -> new IllegalStateException(String.format("User profile %s not found.", userProfileId)));
     }
 
     private void isImage(MultipartFile file) {
-        if (!Arrays.asList(IMAGE_JPEG, IMAGE_PNG, IMAGE_GIF).contains(file.getContentType())) {
-            throw new IllegalStateException("File must be an image");
+        if (!Arrays.asList(IMAGE_JPEG.getMimeType(),
+                IMAGE_PNG.getMimeType(),
+                IMAGE_GIF.getMimeType()).contains(file.getContentType())) {
+            throw new IllegalStateException("File must be an image: " + file.getContentType());
         }
     }
 
