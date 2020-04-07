@@ -43,13 +43,26 @@ public class UserProfileService {
 
         // 5. Store the image in S3 and update database (userProfileImageLing) with s3 image link
         String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), user.getUserProfileId());
-        String fileName = String.format("%s-%s", file.getName(), UUID.randomUUID());
+        String fileName = String.format("%s-%s", file.getOriginalFilename(), UUID.randomUUID());
 
         try {
             fileStore.save(path, fileName, Optional.of(metadata), file.getInputStream());
+            user.setProfileImageLink(fileName);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    public byte[] downloadUserProfileImage(UUID userProfileId) {
+        UserProfile user = getUserProfileOrThrow(userProfileId);
+        String path = String.format("%s/%s",
+                BucketName.PROFILE_IMAGE.getBucketName(),
+                user.getUserProfileId());
+
+        return user.getProfileImageLink()
+                .map(key -> fileStore.download(path, key))
+                .orElse(new byte[0]);
+
     }
 
     private Map<String, String> extractMetadata(MultipartFile file) {
@@ -81,4 +94,6 @@ public class UserProfileService {
             throw new IllegalStateException("Cannot upload empty file [ " + file.getSize() + " ]");
         }
     }
+
+
 }
