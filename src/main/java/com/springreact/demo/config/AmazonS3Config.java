@@ -6,23 +6,22 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.simpleworkflow.flow.annotations.NoWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AmazonConfig {
+public class AmazonS3Config {
 
     private final AWSConfig awsConfig;
 
     @Autowired
-    public AmazonConfig(AWSConfig awsConfig) {
+    public AmazonS3Config(AWSConfig awsConfig) {
         this.awsConfig = awsConfig;
     }
 
     @Bean
-    public AmazonS3 s3(){
+    public AmazonS3 s3() {
         AWSCredentials awsCredentials = new BasicAWSCredentials(
                 awsConfig.getAccessKeyId(),
                 awsConfig.getSecretKey()
