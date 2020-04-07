@@ -26,14 +26,14 @@ const UserProfiles = () => {
                 <br/>
                 <h1>{userProfile.username}</h1>
                 <p>{userProfile.userProfileId}</p>
-                <MyDropzone {...userProfile} />
+                <MyDropzone userProfileId={userProfile.userProfileId}/>
                 <br/>
             </div>
         )
     })
 };
 
-function MyDropzone(userProfileId) {
+function MyDropzone({userProfileId}) {
     const onDrop = useCallback(acceptedFiles => {
         const file = acceptedFiles[0];
 
