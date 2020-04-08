@@ -10,7 +10,7 @@ App was made based on Amigoscode tutorial : [Spring Boot and React JS | Full Cou
 
 Open the project in IDE.
 
-Add your accessKeyId and secretKey from AWS Console Credentials.
+Add your accessKeyId and secretKey from AWS Console Credentials into `resources\application=properties`.
 
 Run the application backend using `mvn spring-boot:run` or by running the `Main` class directly from your IDE.
 Go to frotend ( open terminal in frontend folder: `cd src/main/frontend` ) and run frontend using `npm start`.
